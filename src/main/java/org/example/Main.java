@@ -1,4 +1,5 @@
 package org.example;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -57,7 +58,7 @@ public class Main {
         System.out.println(selectedBundle.getString("start"));
         double items = Double.parseDouble(scanner.nextLine());
 
-        double cartTotal = 0.0;
+        ArrayList<Double> cartItems = new ArrayList<>();
 
         for (int i = 0; i < items; i++) {
             System.out.println(selectedBundle.getString("price"));
@@ -66,8 +67,12 @@ public class Main {
             System.out.println(selectedBundle.getString("quantity"));
             int quantity = Integer.parseInt(scanner.nextLine());
 
-            cartTotal += price * quantity;
+            double itemTotal = calculateItem(price, quantity);
+
+            cartItems.add(itemTotal);
         }
+
+        double cartTotal = calculateCartTotal(cartItems);
 
         System.out.println(selectedBundle.getString("cost") + " " + getLocalePrice(cartTotal, selectedBundle));
     }
@@ -78,5 +83,17 @@ public class Main {
         } else {
             return price + selectedBundle.getString("currency");
         }
+    }
+
+    public static double calculateCartTotal(ArrayList<Double> cartItems) {
+        double itemTotal = 0;
+        for (int i = 0; i < cartItems.size(); i++) {
+            itemTotal += cartItems.get(i);
+        }
+        return itemTotal;
+    }
+
+    public static double calculateItem(double price, int quantity) {
+        return price * quantity;
     }
 }
