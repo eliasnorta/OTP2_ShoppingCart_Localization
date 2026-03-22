@@ -8,7 +8,7 @@ pipeline {
     environment {
         PATH = "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
         DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
-        DOCKERHUB_REPO = 'eliasnorta/OTP2_ShoppingCart_Localization'
+        DOCKERHUB_REPO = 'eliasnorta/otp2_shoppingCart_localization'
         DOCKER_IMAGE_TAG = 'latest'
         DOCKER_CLI = '/usr/local/bin/docker'
     }
@@ -53,7 +53,7 @@ pipeline {
 
         stage('Build Docker Image') {
     steps {
-        sh '/usr/local/bin/docker build -t eliasnorta/OTP2_ShoppingCart_Localization:latest .'
+        sh '/usr/local/bin/docker build -t eliasnorta/otp2_shoppingCart_localization:latest .'
     }
 }
 
@@ -63,7 +63,7 @@ stage('Push Docker Image to Docker Hub') {
                                           usernameVariable: 'DOCKER_USER', 
                                           passwordVariable: 'DOCKER_PASS')]) {
             sh '/usr/local/bin/docker login -u $DOCKER_USER -p $DOCKER_PASS'
-            sh '/usr/local/bin/docker push eliasnorta/OTP2_ShoppingCart_Localization:latest'
+            sh '/usr/local/bin/docker push eliasnorta/otp2_shoppingCart_localization:latest'
         }
     }
 }
